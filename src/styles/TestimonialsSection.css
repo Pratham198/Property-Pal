@@ -1,0 +1,93 @@
+.testimonials-section {
+  background-color: #ffffff;
+  padding: 60px 20px;
+  text-align: center;
+  overflow: hidden; /* Hide scrollbars */
+  position: relative;
+}
+
+.testimonials-title {
+  font-size: 2.5rem;
+  font-family: 'Poppins', serif;
+  margin-bottom: 40px;
+  color: #3d3d3d;
+}
+
+.testimonials-container {
+  display: flex;
+  gap: 0; /* Remove gaps between cards */
+  animation: scroll 30s linear infinite; /* Infinite scroll effect */
+}
+
+.testimonial-card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  min-width: 250px;
+  max-width: 250px; /* Fixed width for normal size */
+  flex: 0 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px; /* Spacing between cards */
+}
+
+.testimonial-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+.testimonial-name {
+  font-size: 1rem;
+  color: #4a90e2;
+  margin: 10px 0 5px;
+}
+
+.testimonial-review {
+  font-size: 0.85rem;
+  color: #6d6d6d;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.testimonial-rating {
+  font-size: 0.9rem;
+  color: #f39c12; /* Star color */
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .testimonial-card {
+    min-width: 200px;
+    max-width: 200px; /* Adjust size for smaller screens */
+  }
+}
+
+/* Additional CSS to create the infinite loop effect */
+.testimonials-container::before,
+.testimonials-container::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  animation: scroll 30s linear infinite;
+}

@@ -1,0 +1,311 @@
+/* Base Styling */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Ensure consistent sizing */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit; /* Applies the box-sizing rule globally */
+}
+
+.signup-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh; /* Makes sure the wrapper covers full viewport height */
+  background: linear-gradient(120deg, #ffffff, #ffffff);
+  padding: 20px; /* Padding for smaller screens */
+}
+
+.signup-box {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.signup-header {
+  font-size: 32px; /* Slightly larger font size */
+  font-family: 'Cinzel Decorative', serif;
+  text-align: center;
+  color: #3d3d3d;
+  margin-bottom: 15px;
+}
+
+.signup-header2 {
+  font-size: 24px;
+  font-family: 'Poppins', serif;
+  text-align: center;
+  color: #3d3d3d;
+  margin-bottom: 30px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Increased spacing for larger screens */
+}
+
+.name-fields {
+  display: flex;
+  gap: 12px; /* Equal spacing between input fields */
+  width: 100%;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 14px; /* Space between fields */
+}
+
+.input {
+  padding: 14px 16px; /* Increased padding for better alignment */
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #a0a6ae;
+  width: 100%;
+  transition: border-color 0.3s;
+  border-color: #ccc; /* Default border color */
+}
+
+.input:focus {
+  border-color: #000000; /* Maintain default border color on focus */
+}
+
+.floating-label-s {
+  position: absolute;
+  left: 13px; /* Adjusted for proper alignment */
+  top: 12px; /* Adjusted for proper alignment */
+  font-size: 16px;
+  color: #a0a6ae;
+  background-color: #ffffff; /* Blend with input border */
+  padding: 0 4px; /* Padding to prevent overlap */
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+
+.floating-label-s.filled,
+.input:focus + .floating-label-s {
+  top: -8px;
+  left: 14px; /* Shift left for consistent visual */
+  font-size: 12px;
+  color: #1a1a1a;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Hover Message for Password */
+.password-hint {
+  background-color: #f7f7f7;
+  color: #000000;
+  padding: 5px 10px;
+  margin-bottom: 5px; /* Position above the password input */
+  font-size: 12px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  position: absolute;
+  width: 80%;
+  top: -40px; /* Adjusted to be above the input */
+  left: 0; /* Center it above the input */
+  z-index: 10;
+  display: none; /* Hide by default */
+}
+
+/* Display password hint on focus */
+.password-container:focus-within .password-hint {
+  display: block; /* Show on focus */
+}
+
+/* Invalid Input Styling */
+.input.invalid {
+  outline: 1.5px solid red; /* Prevents default browser outline */
+  border-color: red; /* Red border for invalid password */
+}
+
+.input.invalid:focus {
+  outline: 1.5px solid red; /* Prevents default browser outline */
+  border-color: red; /* Red border for invalid password on focus */
+}
+
+/* Valid Input Styling */
+.input.valid {
+  outline: 1.5px solid lightgreen; /* Prevents default browser outline */
+  border-color: lightgreen; /* Green border for valid password */
+}
+
+.input.valid:focus {
+  outline: 1.5px solid lightgreen; /* Prevents default browser outline */
+  border-color: lightgreen; /* Green border for valid password on focus */
+}
+
+/* Error Message Styling */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.signup-btn {
+  background-color: #4a90e2;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+
+.signup-btn:hover {
+  background-color: #357ABD;
+}
+
+/* Login Text Styling */
+.login-text-container {
+  text-align: center;
+  margin-top: 20px; /* Spacing between the signup button and login text */
+}
+
+.login-text {
+  color: #666;
+  font-size: 16px;
+  text-align: center;
+}
+
+.login-link {
+  color: #4a90e2;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.login-link:hover {
+  color: #357ABD;
+}
+
+/* Divider with Horizontal Lines */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 30px 0; /* Space between the signup button and the alternative login */
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #000000; /* Style of the horizontal line */
+}
+
+.divider-text {
+  padding: 0 10px;
+  color: #000000;
+  font-size: 14px;
+}
+
+.alternative-login {
+  text-align: center;
+  margin-top: 20px; /* Increased spacing */
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px; /* Increased padding */
+  background-color: #fff;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+  font-size: 1.1rem;
+  font-weight: 550;
+}
+
+.google-btn:hover {
+  background-color: #eeeeee;
+}
+
+.google-icon {
+  width: 20px;
+  margin-right: 8px;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) { /* Medium screens */
+  .signup-box {
+    padding: 30px;
+    max-width: 90%; /* Make it more fluid */
+  }
+
+  .name-fields {
+    flex-direction: column;
+    gap: 12px; /* Adjusted gap for consistency */
+  }
+}
+
+@media (max-width: 500px) { /* Small screens */
+  .signup-box {
+    padding: 20px; /* Reduced padding for a more compact look */
+  }
+
+  .signup-header {
+    font-size: 28px; /* Adjust font size */
+  }
+
+  .name-fields {
+    gap: 12px;
+  }
+
+  .input {
+    padding: 14px 16px; /* Adjust padding for floating label alignment */
+  }
+
+  .floating-label {
+    top: 12px; /* Adjusted for smaller screens */
+    left: 13px; /* Proper alignment */
+  }
+
+  .signup-btn,
+  .google-btn {
+    padding: 12px; /* Adjust padding */
+  }
+}
+
+@media (min-width: 1200px) { /* Large screens */
+  .signup-box {
+    max-width: 600px; /* Wider form for large screens */
+    padding: 50px;
+  }
+
+  .signup-header {
+    font-size: 36px; /* Larger header font */
+  }
+
+  .signup-form {
+    gap: 15px; /* More spacing for larger screens */
+  }
+}
