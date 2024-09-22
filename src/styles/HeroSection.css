@@ -1,0 +1,179 @@
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('https://images.unsplash.com/photo-1570129477492-45c003edd2be') center/cover no-repeat;
+  height: 100vh;
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+  padding: 0 20px; /* For better spacing on smaller screens */
+}
+
+.image-overlay { 
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3); /* Dull the background image */
+  z-index: 1; /* Ensures overlay is on top of the background image */
+}
+
+.hero-content {
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.9); /* Softer background for calmness */
+  padding: 40px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px); /* Enhanced blur effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  color: #333; /* Text color for readability */
+  z-index: 2; /* Ensures content is above the overlay */
+  position: relative; /* Stacking context for content */
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  font-family: 'Poppins', serif;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: #2c3e50; /* Calm and trustworthy color */
+}
+
+.hero-section p {
+  font-size: 1.25rem;
+  margin-bottom: 25px;
+  font-family: 'Poppins', sans-serif;
+  color: #555; /* Subtle color for supporting text */
+}
+
+/* Updated Search Bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease; /* Smooth transition */
+  flex-wrap: wrap; /* Allows for wrapping of elements */
+}
+
+/* Toggle for Buy/Rent */
+.search-toggle {
+  display: flex;
+  background: #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.toggle-btn {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #666;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle-btn.active {
+  /* background-color: #4a90e2; */
+  background-color:  orange;
+  color: #fff;
+}
+
+.search-bar input {
+  padding: 14px 20px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 100%;
+  max-width: 250px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s; /* Smooth transition */
+}
+
+.search-bar input:focus {
+  border-color: #4a90e2; /* Blue focus border */
+}
+
+.search-bar input::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+.search-bar .search-btn {
+  padding: 12px 20px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 16px;
+}
+
+.search-bar .search-btn i {
+  margin-right: 8px; /* Icon spacing */
+}
+
+.search-bar .search-btn:hover {
+  background-color: #357ABD;
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-section p {
+    font-size: 1.1rem;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    gap: 14px; /* Increase gap for better spacing */
+  }
+
+  .search-bar input,
+  .search-bar .search-btn {
+    width: 100%; /* Full width for better alignment */
+  }
+}
+
+@media (max-width: 500px) {
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+  .hero-section p {
+    font-size: 1rem;
+  }
+
+  .hero-content {
+    padding: 20px; /* Reduce padding for smaller screens */
+  }
+
+  .search-bar  {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .search-bar input,
+  .search-bar .search-btn {
+    padding: 10px;
+  }
+}
