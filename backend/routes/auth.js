@@ -1,13 +1,49 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
 const { forgotPassword, resetPassword } = require('../controllers/authController');
-
+const User = require('../models/User');
+const passport = require('passport');
+const { Navigate } = require('react-router-dom');
 const router = express.Router();
 
 // Use a secret key for JWT (recommended to be stored securely in environment variables)
-const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
+const JWT_SECRET = process.env.JWT_SECRET || 'your-jwt-secret';
+
+// // Google auth routes
+router.get('/google', 
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+router.get('/google/callback', passport.authenticate('google', {
+  failureRedirect: '/login', // Redirect to login on failure
+}), async (req, res) => {
+  // Successful authentication
+  const user = req.user; // Get user information from req.user
+  const payload = {
+    user: {
+      id: user.id,
+    },
+  };
+
+  // Generate JWT Token
+  jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+    if (err) {
+      console.error('Error signing token:', err);
+      return res.status(500).json({ message: 'Error generating token' });
+    }
+
+    // Redirect to frontend with token and user data as query parameters
+    res.redirect(`http://localhost:3000?token=${token}&user=${JSON.stringify({
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      profilePicture: user.profilePicture,
+    })}`);
+  });
+});
+
 
 // Signup Route
 router.post('/signup', async (req, res) => {
@@ -78,30 +114,141 @@ router.post('/signup', async (req, res) => {
   }
 });
 
+
 // Login Route
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Invalid email' });
+      const user = await User.findOne({ email });
+      if (!user) {
+          return res.status(400).json({ message: 'Invalid email or password' });
+      }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: 'Invalid password' });
+      // Check password
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+          return res.status(400).json({ message: 'Invalid email or password' });
+      }
 
-    const payload = { user: { id: user.id } };
-
-    jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-      if (err) throw err;
-      res.json({
-        message: 'Login successful',
-        token,
-        user: { firstName: user.firstName, id: user.id }
+      // Create and sign JWT
+      const payload = { user: { id: user.id } };
+      jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+          if (err) {
+              console.error('Error signing token:', err);
+              return res.status(500).json({ message: 'Error generating token' });
+          }
+          res.json({
+              message: 'Login successful',
+              token,
+              user: {
+                  id: user.id,
+                  firstName: user.firstName,
+                  lastName: user.lastName,
+                  email: user.email, // Include email if needed
+              },
+          });
       });
-    });
   } catch (err) {
-    console.error('Error during user login:', err.message);
-    res.status(500).send('Server error');
+      console.error('Error during user login:', err.message);
+      res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Signup Logic for Google Login
+router.post('/signup/google', async (req, res) => {
+  const { firstName, lastName, email, googleId, profilePicture } = req.body;
+
+  try {
+    // Check if the user already exists
+    let user = await User.findOne({ googleId });
+    if (!user) {
+      // Create a new user with the Google ID and null password
+      user = new User({
+        firstName,
+        lastName,
+        email,
+        googleId,
+        profilePicture, // Store the profile picture URL
+        password: null, // No password for Google users
+      });
+      await user.save();
+    } else {
+      // Optionally update existing user information if needed
+      user.firstName = firstName;
+      user.lastName = lastName;
+      user.profilePicture = profilePicture; // Update profile picture if provided
+      await user.save();
+    }
+
+     // Generate JWT Token
+     const payload = {
+      user: {
+        id: user.id,
+      },
+    };
+
+    jwt.sign(
+      payload,
+      JWT_SECRET,
+      { expiresIn: '1h' },
+      (err, token) => {
+        if (err) {
+          console.error('Error signing token:', err);
+          return res.status(500).json({ message: 'Error generating token' });
+        }
+
+    // Successful login or signup response
+    res.status(200).json({
+      message: 'Google signup successful',
+      token,
+      user,
+    });
+  });
+  } catch (error) {
+    console.error('Error during Google signup:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Login Logic for Google Users
+router.post('/login/google', async (req, res) => {
+  const { googleId } = req.body;
+
+  try {
+    // Find user by Google ID
+    const user = await User.findOne({ googleId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+     // Generate JWT Token
+     const payload = {
+      user: {
+        id: user.id,
+      },
+    };
+
+    jwt.sign(
+      payload,
+      JWT_SECRET,
+      { expiresIn: '1h' },
+      (err, token) => {
+        if (err) {
+          console.error('Error signing token:', err);
+          return res.status(500).json({ message: 'Error generating token' });
+        }
+
+    // Successful login response
+    res.status(200).json({
+      message: 'Google login successful',
+      token,
+      user,
+    });
+  });
+  } catch (error) {
+    console.error('Error during Google login:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 

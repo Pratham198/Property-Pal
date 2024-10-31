@@ -8,6 +8,8 @@ import openEyeIcon from '../../img/lgsp/openeye.svg';
 import closeEyeIcon from '../../img/lgsp/closeeye.svg';
 import googleLogo from '../../img/lgsp/googlelogo.png';
 import { AuthContext } from '../../contexts/AuthContext';
+import logo from '../../img/images/logo.png';
+
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -124,11 +126,19 @@ const Signup = () => {
     }
   };
 
+// Google Login
+const handleGoogleLogin = () => {
+  window.open("http://localhost:5000/api/auth/google", "_self");
+};
+
   return (
     <div className="signup-wrapper">
       <ToastContainer />
       <div className="signup-box">
-        <h1 className="signup-header">Property Pal</h1>
+          <div>
+             <img className="brand-logo" src={logo} alt='Property Pal' />
+            {/* <Link to="/" >Property Pal</Link> */}
+          </div>
         <h3 className="signup-header2">Create Account</h3>
         <form className="signup-form" onSubmit={handleSubmit}>
           <div className="name-fields">
@@ -230,7 +240,7 @@ const Signup = () => {
           <div className="divider">
             <span className="divider-text">Or sign up with</span>
           </div>
-          <button className="google-btn">
+          <button className="google-btn" onClick={handleGoogleLogin}>
             <img src={googleLogo} alt="Google Logo" className="google-icon" />
             Google
           </button>

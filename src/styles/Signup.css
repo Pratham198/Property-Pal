@@ -30,13 +30,13 @@ body {
   max-width: 500px;
 }
 
-.signup-header {
-  font-size: 32px; /* Slightly larger font size */
+/* .signup-header {
+  font-size: 32px; 
   font-family: 'Cinzel Decorative', serif;
   text-align: center;
   color: #3d3d3d;
   margin-bottom: 15px;
-}
+} */
 
 .signup-header2 {
   font-size: 24px;
@@ -45,6 +45,12 @@ body {
   color: #3d3d3d;
   margin-bottom: 30px;
 }
+
+.brand-logo {
+  height: auto;
+  width: auto;
+}
+
 
 .signup-form {
   display: flex;

@@ -69,7 +69,8 @@ const ForgotPassword = () => {
        navigate('/login'); // Delay navigation to allow toast message to be visible
       }
     } catch (error) {
-      toast.error('Failed to reset password. Please try again.');
+      //toast.error('Failed to reset password. Please try again.');
+      toast.error(error.response?.data?.message || 'Failed to reset password. Please try again.');
     } finally {
       setIsLoading(false);
     }

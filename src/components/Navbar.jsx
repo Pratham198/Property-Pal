@@ -5,6 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../styles/Navbar.css';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { AuthContext } from '../contexts/AuthContext';
+import logo from '../img/images/logo.png';
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // Side panel visibility
@@ -53,7 +55,8 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="navbar-container">
           <div className="brand-logo">
-            <Link to="/">Property Pal</Link>
+             <img  src={logo} alt='Property Pal' />
+            {/* <Link to="/" >Property Pal</Link> */}
           </div>
           <div className="nav-links">
             <Link to="/">Home</Link>
@@ -86,6 +89,7 @@ const Navbar = () => {
                 <Link to='/login' className="nav-btn login">Login</Link>
               </div>
             )}
+
           </div>
           <div className="menu-icon" onClick={toggleMenu}>
             {isOpen ? <FaTimes /> : <FaBars />}

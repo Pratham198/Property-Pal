@@ -45,7 +45,7 @@ const resetToken = Math.floor(100000 + Math.random() * 900000).toString();
       to: user.email,
       subject: 'Password Reset Request',
       html: `
-        <p>You have requested a password reset.</p>
+        <p>You have requested a password reset for your "Property Pal" account.</p>
         <p>Please use the following OTP to reset your password:</p>
         <h2>${resetToken}</h2>
         <p>This OTP will expire in 1 hour.</p>
@@ -71,11 +71,18 @@ exports.resetPassword = async (req, res) => {
     console.log(user);
     
     
+    
     // Log if user is not found
     if (!user) {
       console.log('User not found');
       return res.status(400).json({ message: 'Invalid email address' });
     }
+
+      // Debugging logs
+      // console.log('Received OTP:', otp);
+      // console.log('Stored OTP:', user.resetToken);
+      // console.log('OTP Expiry:', user.resetTokenExpiry);
+      
 
     // Check if the OTP matches and is still valid
     if (user.resetToken !== otp || user.resetTokenExpiry < Date.now()) {
@@ -96,6 +103,8 @@ exports.resetPassword = async (req, res) => {
 
     // Save the updated user record with the new password
     await user.save();
+    // console.log('Updated User:', user);
+
 
     // Log success
     console.log('Password reset successful');

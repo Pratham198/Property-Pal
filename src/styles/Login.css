@@ -38,6 +38,11 @@ body {
   margin-bottom: 0.9375rem;
 }
 
+.brand-logo {
+  height: auto;
+  width: auto;
+}
+
 .login-header2 {
   font-size: 1.5rem;
   font-family: 'Poppins', serif;

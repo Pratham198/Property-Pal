@@ -8,6 +8,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
+import logo from '../../img/images/logo.png';
+
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -73,11 +75,20 @@ const Login = () => {
     }
   };
 
+// Google Login
+const handleGoogleLogin = () => {
+  window.open("http://localhost:5000/api/auth/google", "_self");
+};
+
+
   return (
     <div className="login-wrapper">
       <ToastContainer />
       <div className="login-box">
-        <h1 className="login-header">Property Pal</h1>
+          <div>
+             <img className="brand-logo" src={logo} alt='Property Pal' />
+            {/* <Link to="/" >Property Pal</Link> */}
+          </div>
         <h3 className="login-header2">Welcome Back</h3>
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="input-container full-width">
@@ -131,7 +142,7 @@ const Login = () => {
           <div className="divider">
             <span className="divider-text">Or login with</span>
           </div>
-          <button className="google-btn">
+          <button className="google-btn" onClick={handleGoogleLogin}>
             <img src={googleLogo} alt="Google Logo" className="google-icon" />
             Google
           </button>
